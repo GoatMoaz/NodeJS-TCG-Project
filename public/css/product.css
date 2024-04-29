@@ -56,18 +56,19 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 200px;
+  height: 500px;
   justify-content: space-evenly;
 }
 
-.form-control input {
+.form-control input,.form-control textarea {
   border: 1px solid gold;
   font: inherit;
   border-radius: 20px;
   width: 100%;
   padding: 10px 15px;
+  margin-bottom: 10px;
 }
-.form-control input:focus {
+.form-control input:focus , .form-control textarea:focus {
   outline: none;
   border-color: #40a4c8;
 }
@@ -75,6 +76,8 @@ main {
   font-weight: bold;
   font-size: 30px;
 }
+
+
 button {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
