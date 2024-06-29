@@ -1,35 +1,34 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/main.css">
-    </head>
+    <link rel="stylesheet" href="/css/product.css">
+</head>
 
-    <body>
-        <%- include('../includes/nav.ejs') %>
-            <main>
-                <% if (products.length> 0) { %>
-                    <ul class="product-list">
-                        <% products.forEach(product=> { %>
-                            <li class="product-item">
-                                <div>
-                                    <a href="/products/<%= product.id %>">
-                                        <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
-                                    </a>
-                                </div>
-                                <div style="width: 100%;">
-                                    <h3>
-                                        <%= product.title %>
-                                    </h3>
-                                    <h4 style="text-align: right;">$<%= product.price %>
-                                    </h4>
-                                </div>
-                                <%- include('../includes/add-to-cart.ejs',{product:product}) %>
-                            </li>
-                            <% }) %>
-                    </ul>
+<body>
+    <%- include('../includes/navigation.ejs') %>
 
-                    <% } else { %>
-                        <h1>No Products Found!</h1>
-                        <% } %>
-            </main>
-    </body>
-
-    </html>
+    <main>
+        <% if(products.length > 0) { %>
+            <div class="grid">
+                <% for(let product of products) { %>
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title"><%= product.title %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%= product.imageUrl %>" alt="<%= product.title%>">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">$<%= product.price %></h2>
+                            <p class="product__description"><%= product.description %></p>
+                        </div>
+                        <div class="card__actions">
+                            <a href="/product/<%= product.id %>" class="btn">Details</a>
+                            <%- include('../includes/add-to-cart', {product: product}) %>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+        <% } else { %>
+            <h1>No Products Found</h1>
+        <% } %>
+    </main>
+<%- include('../includes/end.ejs') %>
