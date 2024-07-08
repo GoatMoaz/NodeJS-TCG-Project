@@ -4,28 +4,31 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main>
-        <% if(cart) { %>
-            <div>
-                <ol>
-                    <% for(let product of cart.products) { %>
-                        <li>
-                            <p><%= product.title %> (<%= product.quantity %>)</p>
-                            <form action="/cart-delete-item" method="post">
-                                <button type="submit" class="btn">Delete</button>
-                                <input type="hidden" name="productId" value="<%= product.id %>">
-                                <input type="hidden" name="productPrice" value="<%= product.price %>">
-                            </form>
-                        </li>
-                    <% } %>
-                </ol>
+        <% if(cart.length) { %>
+            <!-- loop over all the cart -->
+            <% cart.forEach(product => { %>
+                <div class="cart-item">
+                    <div class="cart-item__title">
+                        <h1><%= product.title %></h1>
+                    </div>
+                    <div class="cart-item__quantity">
+                        <h1>Quantity: <%= product.cartItem.quantity %></h1>
+                    </div>
+                    <div class="cart-item__delete">
+                        <form action="/cart-delete-item" method="POST">
+                            <input type="hidden" name="productId" value="<%= product.id %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+            <div class="centered">
+                <form action="/create-order" method="POST">
+                    <button type="submit" class="btn">Order Now!</button>
+                </form>
             </div>
-            <div>
-                <ul>
-                    <li>
-                        <%= cart.totalPrice %>
-                    </li>
-                </ul>
-            </div>
+            
+            
         <% } else { %>
             <h1>Cart is empty!</h1>
         <% } %>
